@@ -8,9 +8,9 @@ traced back to a real transaction rather than smoothed away.
 
 ## View it
 
+- **Live page:** <https://mveplus.github.io/Fuel-ledger-Toyota-Yaris-Cross-Hybrid/>
 - **Offline:** open `index.html` directly in a browser. All assets are local — no internet needed.
-- **GitHub Pages:** keep `index.html` at the repo root (or under `/docs`), push, then
-  Settings → Pages → deploy from `main`. Relative paths work unchanged.
+- **GitHub Pages setup:** `index.html` is at the repo root; Settings → Pages → deploy from `main`.
 
 ## What's inside
 
