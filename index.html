@@ -95,12 +95,12 @@ td.mpg{font-weight:600}
 tr.edited td:first-child::before{content:"●";color:var(--amber);margin-right:6px;font-size:.7em;vertical-align:middle}
 
 /* courtesy */
-.aside{background:var(--ink);color:#E9EDEC;border-radius:14px;padding:24px;margin-top:8px}
-.aside h2{color:#fff}
-.aside .note{color:#9FB0AE}
-.aside table{color:#DDE5E3}
-.aside thead th{background:#0c1620}
-.aside td,.aside th{border-bottom:1px solid #ffffff14}
+.aside{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:8px}
+.aside summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none}
+.aside summary::-webkit-details-marker{display:none}
+.aside summary::after{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;content:'show ▸';white-space:nowrap;flex-shrink:0}
+.aside[open] summary::after{content:'hide ▾'}
+.aside summary:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
 .star{color:var(--amber)}
 
 footer{padding:48px 0 70px;color:var(--muted);font-family:var(--mono);font-size:.76rem;border-top:1px solid var(--line);margin-top:40px}
@@ -223,15 +223,19 @@ footer .wrap>div{max-width:70ch}
   </section>
 
   <section id="courtesy">
-    <div class="aside">
-      <div class="eyebrow" style="color:#9FB0AE">Separate vehicle</div>
-      <h2><span class="star">★</span> Courtesy car — Yaris Hybrid</h2>
-      <p class="note">On loan during the Yaris Cross service, 26 Mar – 27 Apr 2025. Its own odometer; kept out of every figure above.</p>
+    <details class="aside">
+      <summary>
+        <div>
+          <div class="eyebrow">Separate vehicle</div>
+          <h2 style="margin:.2rem 0 0"><span class="star">★</span> Courtesy car — Yaris Hybrid</h2>
+        </div>
+      </summary>
+      <p class="note" style="margin-top:14px">On loan during the Yaris Cross service, 26 Mar – 27 Apr 2025. Its own odometer; kept out of every figure above.</p>
       <div class="scroll" style="border:0;margin-top:14px;max-height:none"><table>
         <thead><tr><th>Date</th><th>Odo (mi)</th><th>£/L</th><th>Litres</th><th>Cost</th></tr></thead>
         <tbody id="loanerBody"></tbody>
       </table></div>
-    </div>
+    </details>
   </section>
 </div>
 
