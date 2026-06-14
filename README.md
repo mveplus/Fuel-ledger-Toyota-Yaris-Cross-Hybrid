@@ -32,7 +32,7 @@ MPG is calculated **brim-to-brim**: miles between two full tanks ÷ (litres refi
 with partial fills rolled into the following full tank. This is robust to missing logs —
 the lifetime figure divides total distance by total fuel between the first and last full tank.
 
-Five corrections were applied from receipts and the odometer:
+Six corrections were applied from receipts and the odometer:
 
 | Date | Change | Effect |
 |------|--------|--------|
@@ -41,6 +41,7 @@ Five corrections were applied from receipts and the odometer:
 | 31/05/2024 | 6.95 L/£10 → 30.42 L/£43.77 | removed false 97 MPG |
 | 21/10/2024 | date corrected (was 28/10/2024) | same fill, 16,624 mi |
 | 11/10/2024 | added missing 31.48 L/£41.52 fill | removed false 82 MPG |
+| 27/04/2024 | Partial → Full · 57.8 MPG (29.25 L confirmed) | revised 08/05 from 58.5 → 59.5 MPG |
 
 Dates are DD/MM/YYYY. Prices in GBP. Imperial gallon = 4.54609 L.
 
