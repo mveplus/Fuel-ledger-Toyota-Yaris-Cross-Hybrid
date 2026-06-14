@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yaris Cross Hybrid — Fuel Ledger 2023–2025</title>
 <link href="assets/fonts.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
 <script src="assets/chart.umd.min.js"></script>
 <script src="assets/chartjs-adapter-date-fns.bundle.min.js"></script>
 <style>
@@ -70,7 +71,7 @@ h2{font-family:var(--disp);font-weight:500;font-size:1.5rem;margin:.2rem 0 0;let
 
 /* corrections */
 .fixes{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.fix{background:var(--panel);display:grid;grid-template-columns:96px 120px 1fr;gap:18px;padding:16px 18px;align-items:start}
+.fix{background:var(--panel);display:grid;grid-template-columns:96px auto 1fr;gap:18px;padding:16px 18px;align-items:start}
 .fix .d{font-family:var(--mono);font-size:.82rem;color:var(--ink);font-weight:500}
 .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:5px;align-self:start;white-space:nowrap}
 .tag.date{background:#14222E12;color:var(--ink)}
@@ -105,6 +106,7 @@ tr.edited td:first-child::before{content:"●";color:var(--amber);margin-right:6
 
 footer{padding:48px 0 70px;color:var(--muted);font-family:var(--mono);font-size:.76rem;border-top:1px solid var(--line);margin-top:40px}
 footer .wrap>div{max-width:70ch}
+.lang-bar{display:flex;justify-content:flex-end;padding:18px 0 0}
 
 #vehicle .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 24px}
 #vehicle figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -129,61 +131,53 @@ footer .wrap>div{max-width:70ch}
 </head>
 <body>
 <div class="wrap">
+  <div class="lang-bar">
+    <div class="toggle" role="group" aria-label="Language / Език / 语言">
+      <button id="lEN" aria-pressed="true">EN</button>
+      <button id="lBG" aria-pressed="false">BG</button>
+      <button id="lZH" aria-pressed="false">中文</button>
+    </div>
+  </div>
   <header>
     <div class="hgrid reveal">
       <div>
-        <div class="eyebrow">Fuel ledger · May 2023 – Jun 2025</div>
-        <h1>Toyota Yaris Cross<br>Hybrid Icon</h1>
-        <p class="sub">Three years of fill-ups, reconciled against the till receipts. Every implausible figure was chased down to a real transaction — not smoothed away.</p>
+        <div class="eyebrow" id="eyebrow-hero">Fuel ledger · May 2023 – Jun 2025</div>
+        <h1 id="h1">Toyota Yaris Cross<br>Hybrid Icon</h1>
+        <p class="sub" id="hero-sub">Three years of fill-ups, reconciled against the till receipts. Every implausible figure was chased down to a real transaction — not smoothed away.</p>
       </div>
       <div class="readout">
-        <div class="bignum"><span id="hero">0.0</span><span class="u">MPG · lifetime (UK)</span></div>
-        <div class="method">brim-to-brim · miles ÷ (litres ÷ 4.54609)</div>
+        <div class="bignum"><span id="hero">0.0</span><span class="u" id="hero-unit">MPG · lifetime (UK)</span></div>
+        <div class="method" id="hero-method">brim-to-brim · miles ÷ (litres ÷ 4.54609)</div>
       </div>
     </div>
     <div class="band reveal" style="animation-delay:.1s">
       <div class="bar"><span class="mark" id="bandmark"></span></div>
-      <div class="ends"><span id="bandlo">worst</span><span>efficiency band per tank</span><span id="bandhi">best</span></div>
+      <div class="ends"><span id="bandlo">worst</span><span id="band-mid">efficiency band per tank</span><span id="bandhi">best</span></div>
     </div>
     <div class="metrics reveal" style="animation-delay:.16s" id="metrics"></div>
   </header>
 
   <section id="vehicle">
     <div class="shead">
-      <div><div class="eyebrow">The vehicle</div><h2>Toyota Yaris Cross Icon HEV</h2></div>
-      <span class="note" style="font-family:var(--mono);font-size:.72rem">Plates redacted · location data stripped</span>
+      <div><div class="eyebrow" id="eyebrow-vehicle">The vehicle</div><h2 id="h2-vehicle">Toyota Yaris Cross Icon HEV</h2></div>
+      <span class="note" id="vehicle-redacted" style="font-family:var(--mono);font-size:.72rem">Plates redacted · location data stripped</span>
     </div>
-    <p class="note">The car behind the numbers: a 1.5-litre full hybrid, first registered April 2023, sold at 23,499 miles. Details below are taken from the V5C with all identifying fields removed.</p>
+    <p class="note" id="vehicle-desc">The car behind the numbers: a 1.5-litre full hybrid, first registered April 2023, sold at 23,499 miles. Details below are taken from the V5C with all identifying fields removed.</p>
     <div class="gallery">
-      <figure><img src="assets/img/front-quarter.png" alt="Front three-quarter view of the Yaris Cross"><figcaption>Front ¾</figcaption></figure>
-      <figure><img src="assets/img/rear-quarter.png" alt="Rear three-quarter view"><figcaption>Rear ¾</figcaption></figure>
-      <figure><img src="assets/img/rear.png" alt="Rear view"><figcaption>Rear</figcaption></figure>
+      <figure><img src="assets/img/front-quarter.png" alt="Front three-quarter view of the Yaris Cross"><figcaption id="cap-front">Front ¾</figcaption></figure>
+      <figure><img src="assets/img/rear-quarter.png" alt="Rear three-quarter view"><figcaption id="cap-rear3">Rear ¾</figcaption></figure>
+      <figure><img src="assets/img/rear.png" alt="Rear view"><figcaption id="cap-rear">Rear</figcaption></figure>
     </div>
-    <div class="spec">
-      <div><span class="k">Registered</span><span class="v">April 2023</span></div>
-      <div><span class="k">Body / category</span><span class="v">5-dr SUV · M1</span></div>
-      <div><span class="k">Powertrain</span><span class="v">1.5 L hybrid · 1490 cc</span></div>
-      <div><span class="k">Engine power</span><span class="v">68 kW net</span></div>
-      <div><span class="k">Fuel</span><span class="v">Petrol-electric hybrid</span></div>
-      <div><span class="k">Tax class</span><span class="v">Alternative fuel car</span></div>
-      <div><span class="k">CO₂</span><span class="v">100 g/km</span></div>
-      <div><span class="k">Emissions standard</span><span class="v">Euro 6 AP · RDE2</span></div>
-      <div><span class="k">CO / THC / NOₓ</span><span class="v">0.157 / 0.016 / 0.007 g/km</span></div>
-      <div><span class="k">Kerb weight</span><span class="v">1254 kg</span></div>
-      <div><span class="k">Max permissible mass</span><span class="v">1690 kg</span></div>
-      <div><span class="k">Towing braked / unbraked</span><span class="v">750 / 550 kg</span></div>
-      <div><span class="k">Noise stationary / drive-by</span><span class="v">71 / 68 dB(A)</span></div>
-      <div><span class="k">Seats · colour</span><span class="v">5 · grey</span></div>
-    </div>
+    <div class="spec" id="spec"></div>
     <figure style="margin:22px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px">
       <img src="assets/img/cluster.jpg" alt="Instrument cluster at final reading" style="width:100%;max-height:300px;object-fit:contain;border-radius:8px">
-      <figcaption style="font-family:var(--mono);font-size:.68rem;color:var(--muted);text-align:center;margin-top:10px;letter-spacing:.06em;text-transform:uppercase">Cluster at final reading — 23,499 mi</figcaption>
+      <figcaption id="cap-cluster" style="font-family:var(--mono);font-size:.68rem;color:var(--muted);text-align:center;margin-top:10px;letter-spacing:.06em;text-transform:uppercase">Cluster at final reading — 23,499 mi</figcaption>
     </figure>
   </section>
 
   <section id="efficiency">
     <div class="shead">
-      <div><div class="eyebrow">Signature view</div><h2>Efficiency over time</h2></div>
+      <div><div class="eyebrow" id="eyebrow-eff">Signature view</div><h2 id="h2-eff">Efficiency over time</h2></div>
       <div class="toggle" role="group" aria-label="Data version">
         <button id="bCorr" aria-pressed="true">Reconciled</button>
         <button id="bRaw" aria-pressed="false">As first logged</button>
@@ -193,31 +187,31 @@ footer .wrap>div{max-width:70ch}
     <div class="card" style="margin-top:14px">
       <div class="chartbox"><canvas id="mpgChart"></canvas></div>
       <div class="legend">
-        <span><i style="border-color:var(--teal)"></i>Reconciled MPG</span>
-        <span><i style="border-color:var(--red);border-top-style:dashed"></i>As first logged</span>
-        <span><i style="border-color:var(--muted);border-top-style:dotted"></i>Lifetime average</span>
-        <span><span class="dot" style="background:var(--amber)"></span>Courtesy car</span>
+        <span><i style="border-color:var(--teal)"></i><span id="legend-corr">Reconciled MPG</span></span>
+        <span><i style="border-color:var(--red);border-top-style:dashed"></i><span id="legend-raw">As first logged</span></span>
+        <span><i style="border-color:var(--muted);border-top-style:dotted"></i><span id="legend-avg">Lifetime average</span></span>
+        <span><span class="dot" style="background:var(--amber)"></span><span id="legend-loan">Courtesy car</span></span>
       </div>
     </div>
   </section>
 
   <section id="corrections">
-    <div class="shead"><div><div class="eyebrow">Audit trail</div><h2>What the receipts corrected</h2></div></div>
-    <p class="note">Five changes, in the order the evidence surfaced. Two were date typos caught by the odometer; three were fuel-volume problems that had been inventing impossible economy.</p>
+    <div class="shead"><div><div class="eyebrow" id="eyebrow-corr">Audit trail</div><h2 id="h2-corr">What the receipts corrected</h2></div></div>
+    <p class="note" id="corrections-note">Five changes, in the order the evidence surfaced. Two were date typos caught by the odometer; three were fuel-volume problems that had been inventing impossible economy.</p>
     <div class="fixes" id="fixes" style="margin-top:18px"></div>
   </section>
 
   <section id="price">
-    <div class="shead"><div><div class="eyebrow">Cost</div><h2>Pump price paid</h2></div></div>
-    <p class="note">Price per litre at each fill. The downward drift through 2025 tracks the wider fall in UK pump prices.</p>
+    <div class="shead"><div><div class="eyebrow" id="eyebrow-price">Cost</div><h2 id="h2-price">Pump price paid</h2></div></div>
+    <p class="note" id="price-note">Price per litre at each fill. The downward drift through 2025 tracks the wider fall in UK pump prices.</p>
     <div class="card" style="margin-top:14px"><div class="chartbox" style="height:300px"><canvas id="priceChart"></canvas></div></div>
   </section>
 
   <section id="ledger">
-    <div class="shead"><div><div class="eyebrow">Full record</div><h2>The ledger</h2></div>
-      <span class="note" style="font-family:var(--mono);font-size:.74rem"><span class="star">●</span> = corrected from a receipt</span></div>
+    <div class="shead"><div><div class="eyebrow" id="eyebrow-ledger">Full record</div><h2 id="h2-ledger">The ledger</h2></div>
+      <span class="note" id="ledger-hint" style="font-family:var(--mono);font-size:.74rem"><span class="star">●</span> = corrected from a receipt</span></div>
     <div class="scroll"><table id="ledgerTable">
-      <thead><tr><th>Date</th><th>Odo (mi)</th><th>Trip</th><th>£/L</th><th>Litres</th><th>Cost</th><th>Fill</th><th>MPG</th></tr></thead>
+      <thead id="ledgerHead"><tr><th>Date</th><th>Odo (mi)</th><th>Trip</th><th>£/L</th><th>Litres</th><th>Cost</th><th>Fill</th><th>MPG</th></tr></thead>
       <tbody></tbody>
     </table></div>
   </section>
@@ -226,13 +220,13 @@ footer .wrap>div{max-width:70ch}
     <details class="aside">
       <summary>
         <div>
-          <div class="eyebrow">Separate vehicle</div>
-          <h2 style="margin:.2rem 0 0"><span class="star">★</span> Courtesy car — Yaris Hybrid</h2>
+          <div class="eyebrow" id="eyebrow-loan">Separate vehicle</div>
+          <h2 id="h2-loan" style="margin:.2rem 0 0"><span class="star">★</span> Courtesy car — Yaris Hybrid</h2>
         </div>
       </summary>
-      <p class="note" style="margin-top:14px">On loan during the Yaris Cross service, 26 Mar – 27 Apr 2025. Its own odometer; kept out of every figure above.</p>
+      <p class="note" id="loan-note" style="margin-top:14px">On loan during the Yaris Cross service, 26 Mar – 27 Apr 2025. Its own odometer; kept out of every figure above.</p>
       <div class="scroll" style="border:0;margin-top:14px;max-height:none"><table>
-        <thead><tr><th>Date</th><th>Odo (mi)</th><th>£/L</th><th>Litres</th><th>Cost</th></tr></thead>
+        <thead id="loanerHead"><tr><th>Date</th><th>Odo (mi)</th><th>£/L</th><th>Litres</th><th>Cost</th></tr></thead>
         <tbody id="loanerBody"></tbody>
       </table></div>
     </details>
@@ -243,97 +237,400 @@ footer .wrap>div{max-width:70ch}
 
 <script>
 const DATA = {"summary": {"lifetime_mpg": 58.8, "total_litres": 1816.53, "total_spend": 2560.98, "avg_ppl": 1.41, "distance": 23161, "cost_per_mile": 11.06, "best": 66.8, "worst": 51.4, "median": 59.7, "fills": 66}, "corrected": [{"x": "2023-06-01", "y": 59.95, "odo": 1094}, {"x": "2023-06-14", "y": 61.74, "odo": 1490}, {"x": "2023-06-20", "y": 62.42, "odo": 1903}, {"x": "2023-07-05", "y": 63.71, "odo": 2513}, {"x": "2023-07-19", "y": 61.52, "odo": 3415}, {"x": "2023-08-05", "y": 65.63, "odo": 3852}, {"x": "2023-08-23", "y": 63.04, "odo": 4245}, {"x": "2023-09-17", "y": 61.74, "odo": 5270}, {"x": "2023-10-03", "y": 59.58, "odo": 5711}, {"x": "2023-10-21", "y": 58.14, "odo": 6365}, {"x": "2023-11-01", "y": 58.03, "odo": 6738}, {"x": "2023-11-23", "y": 56.81, "odo": 7376}, {"x": "2023-12-13", "y": 51.4, "odo": 7947}, {"x": "2024-01-07", "y": 52.87, "odo": 8534}, {"x": "2024-01-14", "y": 51.8, "odo": 8749}, {"x": "2024-02-11", "y": 54.07, "odo": 9061}, {"x": "2024-02-25", "y": 64.01, "odo": 9432}, {"x": "2024-03-09", "y": 57.97, "odo": 9793}, {"x": "2024-03-14", "y": 58.76, "odo": 10184}, {"x": "2024-04-03", "y": 60.04, "odo": 10567}, {"x": "2024-04-14", "y": 57.25, "odo": 10935}, {"x": "2024-05-08", "y": 58.55, "odo": 11892}, {"x": "2024-05-19", "y": 66.85, "odo": 12338}, {"x": "2024-05-31", "y": 62.17, "odo": 12754}, {"x": "2024-06-10", "y": 57.36, "odo": 13140}, {"x": "2024-06-21", "y": 63.59, "odo": 13583}, {"x": "2024-07-16", "y": 61.56, "odo": 14321}, {"x": "2024-07-25", "y": 62.97, "odo": 14773}, {"x": "2024-09-15", "y": 64.88, "odo": 15471}, {"x": "2024-09-29", "y": 59.92, "odo": 15863}, {"x": "2024-10-11", "y": 59.93, "odo": 16278}, {"x": "2024-11-13", "y": 59.74, "odo": 17398}, {"x": "2024-11-28", "y": 53.36, "odo": 17781}, {"x": "2024-12-12", "y": 55.7, "odo": 18182}, {"x": "2025-01-12", "y": 54.05, "odo": 18818}, {"x": "2025-01-22", "y": 53.84, "odo": 19196}, {"x": "2025-02-01", "y": 52.23, "odo": 19541}, {"x": "2025-02-18", "y": 54.17, "odo": 20199}, {"x": "2025-03-01", "y": 53.97, "odo": 20902}, {"x": "2025-03-15", "y": 56.53, "odo": 21301}, {"x": "2025-05-05", "y": 57.11, "odo": 21677}, {"x": "2025-05-17", "y": 63.3, "odo": 22106}, {"x": "2025-06-03", "y": 59.79, "odo": 22716}, {"x": "2025-06-13", "y": 60.89, "odo": 23165}], "raw": [{"x": "2023-06-01", "y": 59.95, "odo": 1094}, {"x": "2023-06-14", "y": 61.74, "odo": 1490}, {"x": "2023-06-20", "y": 62.42, "odo": 1903}, {"x": "2023-07-05", "y": 63.71, "odo": 2513}, {"x": "2023-07-19", "y": 61.52, "odo": 3415}, {"x": "2023-08-05", "y": 65.63, "odo": 3852}, {"x": "2023-08-23", "y": 63.04, "odo": 4245}, {"x": "2023-09-17", "y": 61.74, "odo": 5270}, {"x": "2023-10-03", "y": 59.58, "odo": 5711}, {"x": "2023-10-21", "y": 58.14, "odo": 6365}, {"x": "2023-11-01", "y": 58.03, "odo": 6738}, {"x": "2023-11-23", "y": 56.81, "odo": 7376}, {"x": "2023-12-13", "y": 51.4, "odo": 7947}, {"x": "2024-01-07", "y": 52.87, "odo": 8534}, {"x": "2024-01-14", "y": 51.8, "odo": 8749}, {"x": "2024-02-11", "y": 54.07, "odo": 9061}, {"x": "2024-02-25", "y": 64.01, "odo": 9432}, {"x": "2024-03-09", "y": 57.97, "odo": 9793}, {"x": "2024-03-14", "y": 58.76, "odo": 10184}, {"x": "2024-04-03", "y": 60.04, "odo": 10567}, {"x": "2024-04-14", "y": 57.25, "odo": 10935}, {"x": "2024-05-08", "y": 58.55, "odo": 11892}, {"x": "2024-05-19", "y": 66.85, "odo": 12338}, {"x": "2024-06-10", "y": 97.12, "odo": 13140}, {"x": "2024-06-21", "y": 63.59, "odo": 13583}, {"x": "2024-07-16", "y": 61.56, "odo": 14321}, {"x": "2024-07-25", "y": 62.97, "odo": 14773}, {"x": "2024-09-15", "y": 64.88, "odo": 15471}, {"x": "2024-09-29", "y": 59.92, "odo": 15863}, {"x": "2024-11-13", "y": 81.88, "odo": 17398}, {"x": "2024-11-28", "y": 53.36, "odo": 17781}, {"x": "2024-12-12", "y": 55.7, "odo": 18182}, {"x": "2025-01-12", "y": 54.05, "odo": 18818}, {"x": "2025-01-22", "y": 53.84, "odo": 19196}, {"x": "2025-02-01", "y": 52.23, "odo": 19541}, {"x": "2025-02-18", "y": 54.17, "odo": 20199}, {"x": "2025-03-01", "y": 53.97, "odo": 20902}, {"x": "2025-03-15", "y": 56.53, "odo": 21301}, {"x": "2025-05-05", "y": 57.11, "odo": 21677}, {"x": "2025-05-17", "y": 63.3, "odo": 22106}, {"x": "2025-06-03", "y": 59.79, "odo": 22716}, {"x": "2025-06-13", "y": 60.89, "odo": 23165}], "loaner": [{"x": "2025-04-19", "y": 58.3}, {"x": "2025-04-27", "y": 67.68}], "price": [{"x": "2023-05-01", "y": 1.4}, {"x": "2023-05-13", "y": 1.4}, {"x": "2023-05-24", "y": 1.43}, {"x": "2023-06-01", "y": 1.43}, {"x": "2023-06-14", "y": 1.4}, {"x": "2023-06-20", "y": 1.39}, {"x": "2023-06-28", "y": 1.46}, {"x": "2023-07-05", "y": 1.57}, {"x": "2023-07-08", "y": 1.47}, {"x": "2023-07-09", "y": 1.36}, {"x": "2023-07-19", "y": 1.38}, {"x": "2023-08-05", "y": 1.37}, {"x": "2023-08-23", "y": 1.51}, {"x": "2023-08-29", "y": 1.43}, {"x": "2023-09-10", "y": 1.46}, {"x": "2023-09-17", "y": 1.5}, {"x": "2023-10-03", "y": 1.52}, {"x": "2023-10-08", "y": 1.48}, {"x": "2023-10-21", "y": 1.47}, {"x": "2023-11-01", "y": 1.56}, {"x": "2023-11-12", "y": 1.44}, {"x": "2023-11-23", "y": 1.53}, {"x": "2023-12-03", "y": 1.41}, {"x": "2023-12-13", "y": 1.5}, {"x": "2023-12-22", "y": 1.36}, {"x": "2024-01-07", "y": 1.36}, {"x": "2024-01-14", "y": 1.34}, {"x": "2024-02-11", "y": 1.35}, {"x": "2024-02-25", "y": 1.38}, {"x": "2024-03-09", "y": 1.47}, {"x": "2024-03-14", "y": 1.45}, {"x": "2024-04-03", "y": 1.45}, {"x": "2024-04-14", "y": 1.42}, {"x": "2024-04-24", "y": 1.52}, {"x": "2024-04-27", "y": 1.49}, {"x": "2024-05-08", "y": 1.48}, {"x": "2024-05-19", "y": 1.46}, {"x": "2024-05-31", "y": 1.44}, {"x": "2024-06-10", "y": 1.43}, {"x": "2024-06-21", "y": 1.46}, {"x": "2024-07-01", "y": 1.39}, {"x": "2024-07-16", "y": 1.48}, {"x": "2024-07-25", "y": 1.43}, {"x": "2024-08-11", "y": 1.39}, {"x": "2024-09-15", "y": 1.37}, {"x": "2024-09-29", "y": 1.47}, {"x": "2024-10-11", "y": 1.32}, {"x": "2024-10-21", "y": 1.36}, {"x": "2024-10-31", "y": 1.5}, {"x": "2024-11-13", "y": 1.36}, {"x": "2024-11-28", "y": 1.3}, {"x": "2024-12-12", "y": 1.31}, {"x": "2024-12-22", "y": 1.32}, {"x": "2025-01-12", "y": 1.39}, {"x": "2025-01-22", "y": 1.37}, {"x": "2025-02-01", "y": 1.32}, {"x": "2025-02-09", "y": 1.32}, {"x": "2025-02-18", "y": 1.5}, {"x": "2025-02-22", "y": 1.4}, {"x": "2025-03-01", "y": 1.37}, {"x": "2025-03-15", "y": 1.35}, {"x": "2025-05-05", "y": 1.27}, {"x": "2025-05-17", "y": 1.25}, {"x": "2025-05-28", "y": 1.36}, {"x": "2025-06-03", "y": 1.28}, {"x": "2025-06-13", "y": 1.28}], "ledger": [{"date": "01/05/2023", "odo": 4, "trip": "", "ppl": 1.4, "vol": 26.0, "cost": 36.4, "fill": "Partial", "mpg": ""}, {"date": "13/05/2023", "odo": 400, "trip": 396, "ppl": 1.4, "vol": 24.83, "cost": 34.69, "fill": "Partial", "mpg": ""}, {"date": "24/05/2023", "odo": 700, "trip": 300, "ppl": 1.43, "vol": 30.28, "cost": 43.27, "fill": "Full", "mpg": ""}, {"date": "01/06/2023", "odo": 1094, "trip": 394, "ppl": 1.43, "vol": 29.88, "cost": 42.7, "fill": "Full", "mpg": 59.9}, {"date": "14/06/2023", "odo": 1490, "trip": 396, "ppl": 1.4, "vol": 29.16, "cost": 40.79, "fill": "Full", "mpg": 61.7}, {"date": "20/06/2023", "odo": 1903, "trip": 413, "ppl": 1.39, "vol": 30.08, "cost": 41.78, "fill": "Full", "mpg": 62.4}, {"date": "28/06/2023", "odo": 2328, "trip": 425, "ppl": 1.46, "vol": 13.71, "cost": 20.0, "fill": "Partial", "mpg": ""}, {"date": "05/07/2023", "odo": 2513, "trip": 185, "ppl": 1.57, "vol": 29.82, "cost": 46.76, "fill": "Full", "mpg": 63.7}, {"date": "08/07/2023", "odo": 2887, "trip": 374, "ppl": 1.47, "vol": 20.49, "cost": 30.1, "fill": "Partial", "mpg": ""}, {"date": "09/07/2023", "odo": 2958, "trip": 71, "ppl": 1.36, "vol": 12.76, "cost": 17.34, "fill": "Partial", "mpg": ""}, {"date": "19/07/2023", "odo": 3415, "trip": 457, "ppl": 1.38, "vol": 33.4, "cost": 46.06, "fill": "Full", "mpg": 61.5}, {"date": "05/08/2023", "odo": 3852, "trip": 437, "ppl": 1.37, "vol": 30.27, "cost": 41.44, "fill": "Full", "mpg": 65.6}, {"date": "23/08/2023", "odo": 4245, "trip": 393, "ppl": 1.51, "vol": 28.34, "cost": 42.85, "fill": "Full", "mpg": 63.0}, {"date": "29/08/2023", "odo": 4552, "trip": 307, "ppl": 1.43, "vol": 21.34, "cost": 30.49, "fill": "Partial", "mpg": ""}, {"date": "10/09/2023", "odo": 4872, "trip": 320, "ppl": 1.46, "vol": 24.13, "cost": 35.21, "fill": "Partial", "mpg": ""}, {"date": "17/09/2023", "odo": 5270, "trip": 398, "ppl": 1.5, "vol": 30.0, "cost": 44.97, "fill": "Full", "mpg": 61.7}, {"date": "03/10/2023", "odo": 5711, "trip": 441, "ppl": 1.52, "vol": 33.65, "cost": 51.11, "fill": "Full", "mpg": 59.6}, {"date": "08/10/2023", "odo": 5984, "trip": 273, "ppl": 1.48, "vol": 20.85, "cost": 30.84, "fill": "Partial", "mpg": ""}, {"date": "21/10/2023", "odo": 6365, "trip": 381, "ppl": 1.47, "vol": 30.29, "cost": 44.44, "fill": "Full", "mpg": 58.1}, {"date": "01/11/2023", "odo": 6738, "trip": 373, "ppl": 1.56, "vol": 29.22, "cost": 45.55, "fill": "Full", "mpg": 58.0}, {"date": "12/11/2023", "odo": 7002, "trip": 264, "ppl": 1.44, "vol": 22.69, "cost": 32.65, "fill": "Partial", "mpg": ""}, {"date": "23/11/2023", "odo": 7376, "trip": 374, "ppl": 1.53, "vol": 28.36, "cost": 43.31, "fill": "Full", "mpg": 56.8}, {"date": "03/12/2023", "odo": 7581, "trip": 205, "ppl": 1.41, "vol": 20.4, "cost": 28.7, "fill": "Partial", "mpg": ""}, {"date": "13/12/2023", "odo": 7947, "trip": 366, "ppl": 1.5, "vol": 30.1, "cost": 45.12, "fill": "Full", "mpg": 51.4}, {"date": "22/12/2023", "odo": 8208, "trip": 261, "ppl": 1.36, "vol": 22.67, "cost": 30.81, "fill": "Partial", "mpg": ""}, {"date": "07/01/2024", "odo": 8534, "trip": 326, "ppl": 1.36, "vol": 27.8, "cost": 37.78, "fill": "Full", "mpg": 52.9}, {"date": "14/01/2024", "odo": 8749, "trip": 215, "ppl": 1.34, "vol": 18.87, "cost": 25.27, "fill": "Full", "mpg": 51.8}, {"date": "11/02/2024", "odo": 9061, "trip": 312, "ppl": 1.35, "vol": 26.23, "cost": 35.38, "fill": "Full", "mpg": 54.1}, {"date": "25/02/2024", "odo": 9432, "trip": 371, "ppl": 1.38, "vol": 26.35, "cost": 36.34, "fill": "Full", "mpg": 64.0}, {"date": "09/03/2024", "odo": 9793, "trip": 361, "ppl": 1.47, "vol": 28.31, "cost": 41.59, "fill": "Full", "mpg": 58.0}, {"date": "14/03/2024", "odo": 10184, "trip": 391, "ppl": 1.45, "vol": 30.25, "cost": 43.83, "fill": "Full", "mpg": 58.8}, {"date": "03/04/2024", "odo": 10567, "trip": 383, "ppl": 1.45, "vol": 29.0, "cost": 41.93, "fill": "Full", "mpg": 60.0}, {"date": "14/04/2024", "odo": 10935, "trip": 368, "ppl": 1.42, "vol": 29.22, "cost": 41.46, "fill": "Full", "mpg": 57.3}, {"date": "24/04/2024", "odo": 11331, "trip": 396, "ppl": 1.52, "vol": 13.28, "cost": 20.17, "fill": "Partial", "mpg": ""}, {"date": "27/04/2024", "odo": 11476, "trip": 145, "ppl": 1.49, "vol": 29.25, "cost": 43.55, "fill": "Partial", "mpg": ""}, {"date": "08/05/2024", "odo": 11892, "trip": 416, "ppl": 1.48, "vol": 31.78, "cost": 46.94, "fill": "Full", "mpg": 58.5}, {"date": "19/05/2024", "odo": 12338, "trip": 446, "ppl": 1.46, "vol": 30.33, "cost": 44.25, "fill": "Full", "mpg": 66.8}, {"date": "31/05/2024", "odo": 12754, "trip": 416, "ppl": 1.44, "vol": 30.42, "cost": 43.77, "fill": "Full", "mpg": 62.2}, {"date": "10/06/2024", "odo": 13140, "trip": 386, "ppl": 1.43, "vol": 30.59, "cost": 43.71, "fill": "Full", "mpg": 57.4}, {"date": "21/06/2024", "odo": 13583, "trip": 443, "ppl": 1.46, "vol": 31.67, "cost": 46.21, "fill": "Full", "mpg": 63.6}, {"date": "01/07/2024", "odo": 13932, "trip": 349, "ppl": 1.39, "vol": 24.9, "cost": 34.54, "fill": "Partial", "mpg": ""}, {"date": "16/07/2024", "odo": 14321, "trip": 389, "ppl": 1.48, "vol": 29.6, "cost": 43.78, "fill": "Full", "mpg": 61.6}, {"date": "25/07/2024", "odo": 14773, "trip": 452, "ppl": 1.43, "vol": 32.63, "cost": 46.63, "fill": "Full", "mpg": 63.0}, {"date": "11/08/2024", "odo": 15051, "trip": 278, "ppl": 1.39, "vol": 18.33, "cost": 25.42, "fill": "Partial", "mpg": ""}, {"date": "15/09/2024", "odo": 15471, "trip": 420, "ppl": 1.37, "vol": 30.58, "cost": 41.86, "fill": "Full", "mpg": 64.9}, {"date": "29/09/2024", "odo": 15863, "trip": 392, "ppl": 1.47, "vol": 29.74, "cost": 43.69, "fill": "Full", "mpg": 59.9}, {"date": "11/10/2024", "odo": 16278, "trip": 415, "ppl": 1.32, "vol": 31.48, "cost": 41.52, "fill": "Full", "mpg": 59.9}, {"date": "21/10/2024", "odo": 16624, "trip": 346, "ppl": 1.36, "vol": 24.81, "cost": 33.72, "fill": "Partial", "mpg": ""}, {"date": "31/10/2024", "odo": 16982, "trip": 358, "ppl": 1.5, "vol": 27.83, "cost": 41.72, "fill": "Partial", "mpg": ""}, {"date": "13/11/2024", "odo": 17398, "trip": 416, "ppl": 1.36, "vol": 32.59, "cost": 44.29, "fill": "Full", "mpg": 59.7}, {"date": "28/11/2024", "odo": 17781, "trip": 383, "ppl": 1.3, "vol": 32.63, "cost": 42.39, "fill": "Full", "mpg": 53.4}, {"date": "12/12/2024", "odo": 18182, "trip": 401, "ppl": 1.31, "vol": 32.73, "cost": 42.78, "fill": "Full", "mpg": 55.7}, {"date": "22/12/2024", "odo": 18467, "trip": 285, "ppl": 1.32, "vol": 24.11, "cost": 31.8, "fill": "Partial", "mpg": ""}, {"date": "12/01/2025", "odo": 18818, "trip": 351, "ppl": 1.39, "vol": 29.38, "cost": 40.81, "fill": "Full", "mpg": 54.1}, {"date": "22/01/2025", "odo": 19196, "trip": 378, "ppl": 1.37, "vol": 31.92, "cost": 43.7, "fill": "Full", "mpg": 53.8}, {"date": "01/02/2025", "odo": 19541, "trip": 345, "ppl": 1.32, "vol": 30.03, "cost": 39.61, "fill": "Full", "mpg": 52.2}, {"date": "09/02/2025", "odo": 19841, "trip": 300, "ppl": 1.32, "vol": 25.78, "cost": 34.0, "fill": "Partial", "mpg": ""}, {"date": "18/02/2025", "odo": 20199, "trip": 358, "ppl": 1.5, "vol": 29.44, "cost": 44.13, "fill": "Full", "mpg": 54.2}, {"date": "22/02/2025", "odo": 20532, "trip": 333, "ppl": 1.4, "vol": 27.21, "cost": 38.07, "fill": "Partial", "mpg": ""}, {"date": "01/03/2025", "odo": 20902, "trip": 370, "ppl": 1.37, "vol": 32.01, "cost": 43.82, "fill": "Full", "mpg": 54.0}, {"date": "15/03/2025", "odo": 21301, "trip": 399, "ppl": 1.35, "vol": 32.09, "cost": 43.29, "fill": "Full", "mpg": 56.5}, {"date": "05/05/2025", "odo": 21677, "trip": 376, "ppl": 1.27, "vol": 29.93, "cost": 37.98, "fill": "Full", "mpg": 57.1}, {"date": "17/05/2025", "odo": 22106, "trip": 429, "ppl": 1.25, "vol": 30.81, "cost": 38.42, "fill": "Full", "mpg": 63.3}, {"date": "28/05/2025", "odo": 22546, "trip": 440, "ppl": 1.36, "vol": 16.22, "cost": 22.01, "fill": "Partial", "mpg": ""}, {"date": "03/06/2025", "odo": 22716, "trip": 170, "ppl": 1.28, "vol": 30.16, "cost": 38.57, "fill": "Full", "mpg": 59.8}, {"date": "13/06/2025", "odo": 23165, "trip": 449, "ppl": 1.28, "vol": 33.52, "cost": 42.87, "fill": "Full", "mpg": 60.9}], "loaner_rows": [{"date": "09/04/2025", "odo": 19592, "ppl": 1.37, "vol": 29.38, "cost": 40.22}, {"date": "19/04/2025", "odo": 19964, "ppl": 1.31, "vol": 29.01, "cost": 37.97}, {"date": "27/04/2025", "odo": 20289, "ppl": 1.37, "vol": 21.83, "cost": 29.89}], "corrections": [{"date": "22/12/2023", "kind": "Date", "was": "22/12/2024", "now": "22/12/2023", "note": "Year typo; odometer (8,208) confirmed the row sat in Dec 2023."}, {"date": "24/04/2024", "kind": "Date", "was": "24/02/2024", "now": "24/04/2024", "note": "Month typo; odometer (11,331) placed it in late April."}, {"date": "31/05/2024", "kind": "Volume", "was": "6.95 L / \u00a310.00", "now": "30.42 L / \u00a343.77", "note": "Receipt showed a full fill, not a \u00a310 splash. Collapsed the false 97 MPG reading to 62/57."}, {"date": "21/10/2024", "kind": "Date", "was": "28/10/2024", "now": "21/10/2024", "note": "Till receipt date; same fill (16,624 / 24.81 L)."}, {"date": "11/10/2024", "kind": "Missing fill", "was": "\u2014 not logged \u2014", "now": "31.48 L / \u00a341.52", "note": "Receipt at odo 16,278 filled a 760-mile blind spot. Removed the false 82 MPG reading."}]};
-const fmt = (n,d=0)=>Number(n).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d});
 const css = v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
-/* hero count-up + band */
-(function(){
-  const s=DATA.summary, el=document.getElementById('hero');
-  const target=s.lifetime_mpg; let t0=null;
-  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if(reduce){el.textContent=fmt(target,1);}
-  else requestAnimationFrame(function step(ts){t0=t0||ts;const p=Math.min((ts-t0)/900,1);
-    el.textContent=fmt(target*(0.2+0.8*p),1);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(target,1);});
-  const lo=s.worst, hi=s.best, pos=((target-lo)/(hi-lo))*100;
-  document.getElementById('bandmark').style.left=pos+'%';
-  document.getElementById('bandlo').textContent=fmt(lo,1)+' worst tank';
-  document.getElementById('bandhi').textContent='best '+fmt(hi,1);
-  const m=[['Distance',fmt(s.distance)+' <small>mi</small>'],['Fuel burned',fmt(s.total_litres,0)+' <small>L</small>'],
-    ['Total spend','£'+fmt(s.total_spend,0)],['Avg price','£'+fmt(s.avg_ppl,2)+'<small>/L</small>'],
-    ['Cost / mile',fmt(s.cost_per_mile,1)+'<small>p</small>']];
-  document.getElementById('metrics').innerHTML=m.map(x=>`<div class="metric"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join('');
-})();
+/* ── exchange rates (indicative, Jun 2025) ── */
+const FX = {bgn:2.30, cny:9.30};
 
-/* corrections */
-document.getElementById('fixes').innerHTML=DATA.corrections.map(c=>{
-  const cls=c.kind.toLowerCase().includes('volume')?'volume':c.kind.toLowerCase().includes('missing')?'missing':'date';
-  return `<div class="fix"><div class="d">${c.date}</div><span class="tag ${cls}">${c.kind}</span>
-   <div class="body"><div class="ch"><del>${c.was}</del><span class="arr">→</span><ins>${c.now}</ins></div><p>${c.note}</p></div></div>`;
-}).join('');
+/* ── conversions ── */
+const mpgToL100 = mpg => 235.214 / mpg;
+const miToKm    = mi  => mi * 1.60934;
+const toLocal   = (gbp, lang) => lang==='bg' ? gbp*FX.bgn : lang==='zh' ? gbp*FX.cny : gbp;
+const fmtN = (lang, n, d=0) => {
+  const loc = lang==='bg' ? 'bg-BG' : lang==='zh' ? 'zh-CN' : 'en-GB';
+  return Number(n).toLocaleString(loc,{minimumFractionDigits:d,maximumFractionDigits:d});
+};
+const localiseGBP = (str, lang) => {
+  if (lang==='en') return str;
+  return str.replace(/£(\d+\.\d+)/g, (_,amt) =>
+    T[lang].sym + fmtN(lang, toLocal(parseFloat(amt), lang), 2));
+};
 
-/* ledger */
-document.querySelector('#ledgerTable tbody').innerHTML=DATA.ledger.map(r=>{
-  const edited=DATA.corrections.some(c=>c.now&&[r.date].includes(c.date)) || ['31/05/2024','11/10/2024','21/10/2024','22/12/2023','24/04/2024'].includes(r.date);
-  return `<tr class="${edited?'edited':''}"><td>${r.date}</td><td>${fmt(r.odo)}</td><td>${r.trip===''?'—':fmt(r.trip)}</td>
-   <td>£${fmt(r.ppl,2)}</td><td>${fmt(r.vol,2)}</td><td>£${fmt(r.cost,2)}</td>
-   <td class="${r.fill==='Full'?'full':'part'}">${r.fill}</td><td class="mpg">${r.mpg===''?'—':fmt(r.mpg,1)}</td></tr>`;
-}).join('');
-document.getElementById('loanerBody').innerHTML=DATA.loaner_rows.map(r=>
-  `<tr><td>${r.date}</td><td>${fmt(r.odo)}</td><td>£${fmt(r.ppl,2)}</td><td>${fmt(r.vol,2)}</td><td>£${fmt(r.cost,2)}</td></tr>`).join('');
+/* ── translations ── */
+const T = {
+en:{
+  lang_attr:'en-GB', title:'Yaris Cross Hybrid — Fuel Ledger 2023–2025',
+  eyebrow_hero:'Fuel ledger · May 2023 – Jun 2025', h1:'Toyota Yaris Cross<br>Hybrid Icon',
+  sub:'Three years of fill-ups, reconciled against the till receipts. Every implausible figure was chased down to a real transaction — not smoothed away.',
+  hero_unit:'MPG · lifetime (UK)', method:'brim-to-brim · miles ÷ (litres ÷ 4.54609)',
+  band_mid:'efficiency band per tank', band_worst:'worst tank', band_best:'best',
+  m_dist:'Distance', m_dist_unit:'mi', m_fuel:'Fuel burned', m_spend:'Total spend',
+  m_price:'Avg price', m_price_unit:'/L', m_cpm:'Cost / mile',
+  eyebrow_vehicle:'The vehicle', h2_vehicle:'Toyota Yaris Cross Icon HEV',
+  vehicle_redacted:'Plates redacted · location data stripped',
+  vehicle_desc:'The car behind the numbers: a 1.5-litre full hybrid, first registered April 2023, sold at 23,499 miles. Details below are taken from the V5C with all identifying fields removed.',
+  cap_front:'Front ¾', cap_rear3:'Rear ¾', cap_rear:'Rear',
+  cluster_cap:'Cluster at final reading — 23,499 mi',
+  specs:[['Registered','April 2023'],['Body / category','5-dr SUV · M1'],['Powertrain','1.5 L hybrid · 1490 cc'],
+    ['Engine power','68 kW net'],['Fuel','Petrol-electric hybrid'],['Tax class','Alternative fuel car'],
+    ['CO₂','100 g/km'],['Emissions standard','Euro 6 AP · RDE2'],['CO / THC / NOₓ','0.157 / 0.016 / 0.007 g/km'],
+    ['Kerb weight','1254 kg'],['Max permissible mass','1690 kg'],['Towing braked / unbraked','750 / 550 kg'],
+    ['Noise stationary / drive-by','71 / 68 dB(A)'],['Seats · colour','5 · grey']],
+  eyebrow_eff:'Signature view', h2_eff:'Efficiency over time',
+  btn_corr:'Reconciled', btn_raw:'As first logged',
+  legend_corr:'Reconciled MPG', legend_raw:'As first logged', legend_avg:'Lifetime average', legend_loan:'Courtesy car',
+  note_raw:'As first logged: two readings spike to 97 and 82 MPG — physically impossible for a 36 L tank over those distances. Each marked an unrecorded fill.',
+  note_corr:'Reconciled: both spikes resolve once the missing 31 L fill (Oct) and an under-recorded tank (May) are restored from receipts. Nothing now exceeds 67 MPG.',
+  eyebrow_corr:'Audit trail', h2_corr:'What the receipts corrected',
+  corrections_note:'Five changes, in the order the evidence surfaced. Two were date typos caught by the odometer; three were fuel-volume problems that had been inventing impossible economy.',
+  kind_date:'Date', kind_volume:'Volume', kind_missing:'Missing fill',
+  corr_notes:null,
+  eyebrow_price:'Cost', h2_price:'Pump price paid',
+  price_note:'Price per litre at each fill. The downward drift through 2025 tracks the wider fall in UK pump prices.',
+  price_yaxis:'£ per litre', price_sym:'£',
+  eyebrow_ledger:'Full record', h2_ledger:'The ledger',
+  ledger_hint:'<span class="star">●</span> = corrected from a receipt',
+  th:['Date','Odo (mi)','Trip','£/L','Litres','Cost','Fill','MPG'],
+  fill_full:'Full', fill_part:'Partial',
+  th_loan:['Date','Odo (mi)','£/L','Litres','Cost'],
+  eyebrow_loan:'Separate vehicle',
+  h2_loan:'<span class="star">★</span> Courtesy car — Yaris Hybrid',
+  loan_note:'On loan during the Yaris Cross service, 26 Mar – 27 Apr 2025. Its own odometer; kept out of every figure above.',
+  foot:(fills,dist,distU,eff,effU,method,fx)=>
+    `${fills} fills logged · ${dist} ${distU} · lifetime ${eff} ${effU}.<br>${method}<br>Built from corrected fuel records · prices in GBP. These are UK pump prices only — no attempt is made to reconcile them to local fuel costs in other markets; use the raw data to convert.`,
+  eff_unit:'MPG', sym:'£',
+},
+bg:{
+  lang_attr:'bg', title:'Yaris Cross Hybrid — Дневник за гориво 2023–2025',
+  eyebrow_hero:'Дневник за гориво · май 2023 – юни 2025', h1:'Toyota Yaris Cross<br>Hybrid Icon',
+  sub:'Три години зареждания, съпоставени с касовите бележки. Всяка невъзможна стойност беше проследена до реална транзакция — без изглаждане.',
+  hero_unit:'л/100 км · за целия период', method:'метод бак до бак · км ÷ (литри ÷ 100)',
+  band_mid:'диапазон на ефективност по резервоар', band_worst:'най-лош резервоар', band_best:'най-добър',
+  m_dist:'Разстояние', m_dist_unit:'км', m_fuel:'Изразходвано гориво', m_spend:'Общ разход',
+  m_price:'Средна цена', m_price_unit:'/л', m_cpm:'Цена / км',
+  eyebrow_vehicle:'Автомобилът', h2_vehicle:'Toyota Yaris Cross Icon HEV',
+  vehicle_redacted:'Регистрационен номер скрит · местоположението е премахнато',
+  vehicle_desc:'Автомобилът зад числата: 1,5-литров пълен хибрид, първа регистрация април 2023 г., продаден при 37 799 км. Данните са от свидетелството за регистрация с премахнати идентифициращи полета.',
+  cap_front:'Отпред ¾', cap_rear3:'Отзад ¾', cap_rear:'Отзад',
+  cluster_cap:'Табло при последното показание — 37 799 км',
+  specs:[['Регистрация','Април 2023'],['Каросерия / категория','5-вр. SUV · M1'],['Задвижване','1,5 л хибрид · 1490 куб. см'],
+    ['Мощност на двигателя','68 kW нето'],['Гориво','Бензинов хибрид'],['Данъчна категория','Алтернативно гориво'],
+    ['CO₂','100 г/км'],['Стандарт за емисии','Euro 6 AP · RDE2'],['CO / THC / NOₓ','0,157 / 0,016 / 0,007 г/км'],
+    ['Тегло без товар','1254 кг'],['Макс. допустима маса','1690 кг'],['Теглене спирачно / без спирачки','750 / 550 кг'],
+    ['Шум стационарен / в движение','71 / 68 dB(A)'],['Места · цвят','5 · сиво']],
+  eyebrow_eff:'Основна диаграма', h2_eff:'Ефективност с времето',
+  btn_corr:'Коригирано', btn_raw:'Първоначално',
+  legend_corr:'Коригирано л/100 км', legend_raw:'Първоначално', legend_avg:'Средно за периода', legend_loan:'Заемен автомобил',
+  note_raw:'Първоначални данни: две стойности скачат до 2,42 и 2,90 л/100 км — физически невъзможно за 36-литров резервоар при тези разстояния. Всяко е маркирало незаписано зареждане.',
+  note_corr:'Коригирано: и двата скока изчезват след добавяне на пропуснатото зареждане от 31 л (окт.) и коригиране на занижения резервоар (май). Нищо не надвишава 4,72 л/100 км.',
+  eyebrow_corr:'Одитна следа', h2_corr:'Какво коригираха касовите бележки',
+  corrections_note:'Пет промени, в реда, в който се появиха доказателствата. Две бяха правописни грешки в датата, установени от одометъра; три бяха проблеми с обема гориво.',
+  kind_date:'Дата', kind_volume:'Обем', kind_missing:'Пропуснато зареждане',
+  corr_notes:['Правописна грешка в годината; одометърът (8 208) потвърди, че редът е от декември 2023 г.',
+    'Правописна грешка в месеца; одометърът (11 331) го постави в края на април.',
+    'Бележката показа пълно зареждане, а не пореч от £10. Коригира фалшивото 2,42 л/100 км четене.',
+    'Дата от касовата бележка; същото зареждане (16 624 / 24,81 л).',
+    'Бележка при одометър 16 278 запълни незаписан отрязък от 1 223 км. Премахна фалшивото 2,90 л/100 км четене.'],
+  eyebrow_price:'Цена', h2_price:'Цена на горивото',
+  price_note:'Цена на литър при всяко зареждане. Спадът към 2025 г. следва общия спад на цените на горивото.',
+  price_yaxis:'лв. на литър', price_sym:'лв.',
+  eyebrow_ledger:'Пълен запис', h2_ledger:'Дневникът',
+  ledger_hint:'<span class="star">●</span> = коригирано от касова бележка',
+  th:['Дата','Одометър (км)','Отсечка','лв./л','Литри','Цена','Зареждане','л/100 км'],
+  fill_full:'Пълно', fill_part:'Частично',
+  th_loan:['Дата','Одометър (км)','лв./л','Литри','Цена'],
+  eyebrow_loan:'Отделен автомобил',
+  h2_loan:'<span class="star">★</span> Заемен автомобил — Yaris Hybrid',
+  loan_note:'Назаем по време на сервиза на Yaris Cross, 26 март – 27 апр. 2025. Собствен одометър; извън всички горни данни.',
+  foot:(fills,dist,distU,eff,effU,method,fx)=>
+    `${fills} зареждания · ${dist} ${distU} · средно ${eff} ${effU}.<br>${method}<br>Изградено от коригирани записи · цените са британски бензиностанционни цени в GBP (1 £ ≈ ${fx} лв., индикативен курс юни 2025 г.). Не е правен опит за съпоставяне с местните цени на горивото в България или другаде — суровите данни са налични за самостоятелно преизчисляване.`,
+  eff_unit:'л/100 км', sym:'лв.',
+},
+zh:{
+  lang_attr:'zh-Hans', title:'Yaris Cross Hybrid — 燃油记录 2023–2025',
+  eyebrow_hero:'燃油记录 · 2023年5月 – 2025年6月', h1:'Toyota Yaris Cross<br>Hybrid Icon',
+  sub:'三年加油记录，逐一核对收据。每一个异常数据都追溯到真实交易——没有平滑处理。',
+  hero_unit:'升/百公里 · 总计', method:'满箱法 · 公里 ÷ (升 ÷ 100)',
+  band_mid:'每箱油耗区间', band_worst:'最差', band_best:'最佳',
+  m_dist:'总里程', m_dist_unit:'公里', m_fuel:'总油耗', m_spend:'总花费',
+  m_price:'均价', m_price_unit:'/升', m_cpm:'每公里费用',
+  eyebrow_vehicle:'车辆信息', h2_vehicle:'Toyota Yaris Cross Icon HEV',
+  vehicle_redacted:'车牌已隐去 · 位置数据已删除',
+  vehicle_desc:'数据背后的车辆：1.5升全混动，2023年4月首次注册，行驶37,799公里后出售。以下信息来自登记证书，所有识别字段已删除。',
+  cap_front:'前四分之三', cap_rear3:'后四分之三', cap_rear:'车尾',
+  cluster_cap:'最终读数时的仪表盘 — 37,799 公里',
+  specs:[['注册时间','2023年4月'],['车身 / 类别','5门SUV · M1'],['动力系统','1.5升混动 · 1490cc'],
+    ['发动机功率','68 kW净功率'],['燃料','汽油电动混合'],['税收类别','新能源车'],
+    ['CO₂','100 克/公里'],['排放标准','Euro 6 AP · RDE2'],['CO / THC / NOₓ','0.157 / 0.016 / 0.007 克/公里'],
+    ['整备质量','1254 公斤'],['最大允许质量','1690 公斤'],['拖曳（制动/非制动）','750 / 550 公斤'],
+    ['噪音（静止/行驶）','71 / 68 dB(A)'],['座位 · 颜色','5 · 灰色']],
+  eyebrow_eff:'核心图表', h2_eff:'效率随时间变化',
+  btn_corr:'已修正', btn_raw:'原始记录',
+  legend_corr:'修正后升/百公里', legend_raw:'原始记录', legend_avg:'总体平均', legend_loan:'借用车辆',
+  note_raw:'原始记录：两次读数分别飙升至2.42和2.90升/百公里——对于36升油箱在该距离内实属不可能。每次均标志着一次未记录的加油。',
+  note_corr:'已修正：恢复10月遗漏的31升加油和5月少记的油量后，两次异常峰值消失。现在没有任何读数低于4.72升/百公里。',
+  eyebrow_corr:'审计追踪', h2_corr:'收据纠正了什么',
+  corrections_note:'五处修改，按证据发现顺序排列。两处是被里程表发现的日期笔误；三处是造成不可能油耗的燃油量问题。',
+  kind_date:'日期', kind_volume:'油量', kind_missing:'遗漏记录',
+  corr_notes:['年份笔误；里程表（8,208英里）确认该行属于2023年12月。',
+    '月份笔误；里程表（11,331英里）确认在四月下旬。',
+    '收据显示完整加满，而非£10少量加油。修正后错误的极高油耗读数消失。',
+    '收据日期；同一次加油（16,624 / 24.81升）。',
+    '里程16,278处的收据填补了1,223公里的记录空白，去除了错误的极低油耗读数。'],
+  eyebrow_price:'费用', h2_price:'加油价格',
+  price_note:'每次加油的每升价格。2025年的下降趋势反映了燃油价格的普遍下降。',
+  price_yaxis:'元/升', price_sym:'¥',
+  eyebrow_ledger:'完整记录', h2_ledger:'记录台账',
+  ledger_hint:'<span class="star">●</span> = 已根据收据修正',
+  th:['日期','里程（公里）','行程','元/升','升数','费用','加油类型','升/百公里'],
+  fill_full:'加满', fill_part:'部分',
+  th_loan:['日期','里程（公里）','元/升','升数','费用'],
+  eyebrow_loan:'独立车辆',
+  h2_loan:'<span class="star">★</span> 借用车辆 — Yaris Hybrid',
+  loan_note:'在Yaris Cross维修期间借用，2025年3月26日 – 4月27日。独立里程表；不计入以上任何数据。',
+  foot:(fills,dist,distU,eff,effU,method,fx)=>
+    `共${fills}次加油 · ${dist} ${distU} · 总平均 ${eff} ${effU}.<br>${method}<br>数据来自修正后的燃油记录 · 价格均为英国加油站价格（GBP，1 £ ≈ ${fx} 元，参考汇率2025年6月）。本记录不尝试与中国或其他地区的本地燃油价格进行比较——读者可使用原始数据自行换算。`,
+  eff_unit:'升/百公里', sym:'¥',
+}};
 
-/* charts */
-const avg=DATA.summary.lifetime_mpg;
-const xs=DATA.corrected.concat(DATA.raw).map(p=>p.x).sort();
-const avgLine=[{x:xs[0],y:avg},{x:xs[xs.length-1],y:avg}];
-Chart.defaults.font.family="'IBM Plex Mono', monospace";
-Chart.defaults.color=css('--muted');
+/* ── state ── */
+let activeLang = 'en';
+let showRaw = false;
+let mpgChart = null, priceChart = null;
+let firstRender = true;
 
-const mpg=new Chart(document.getElementById('mpgChart'),{
-  data:{datasets:[
-    {type:'line',label:'Reconciled',data:DATA.corrected,borderColor:css('--teal'),backgroundColor:css('--teal'),
-     tension:.3,borderWidth:2,pointRadius:2.5,pointHoverRadius:5,order:2},
-    {type:'line',label:'As first logged',data:DATA.raw,borderColor:css('--red'),backgroundColor:css('--red'),
-     tension:.3,borderWidth:2,borderDash:[5,4],pointRadius:2.5,pointHoverRadius:5,hidden:true,order:3},
-    {type:'line',label:'Lifetime average',data:avgLine,borderColor:css('--muted'),borderWidth:1.5,
-     borderDash:[2,3],pointRadius:0,order:1},
-    {type:'scatter',label:'Courtesy car',data:DATA.loaner,borderColor:css('--amber'),backgroundColor:css('--amber'),
-     pointStyle:'star',pointRadius:8,pointHoverRadius:11,order:0}
-  ]},
-  options:{maintainAspectRatio:false,responsive:true,interaction:{mode:'nearest',intersect:false},
-    scales:{x:{type:'time',time:{unit:'quarter',tooltipFormat:'dd MMM yyyy',displayFormats:{quarter:'MMM yy'}},
-      grid:{color:css('--grid')},border:{color:css('--line')}},
-      y:{min:45,max:100,title:{display:true,text:'MPG (imperial)'},grid:{color:css('--grid')},border:{display:false}}},
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+' MPG'}}}}
-});
-const note=document.getElementById('effnote');
-const setView=raw=>{
-  mpg.data.datasets[0].hidden=raw; mpg.data.datasets[1].hidden=!raw; mpg.update();
+/* ── build charts ── */
+function buildCharts(lang) {
+  const t = T[lang];
+  const metric = lang !== 'en';
+  if (mpgChart) { mpgChart.destroy(); mpgChart = null; }
+  if (priceChart) { priceChart.destroy(); priceChart = null; }
+  const font = lang==='zh' ? "'Noto Sans SC','IBM Plex Mono',monospace" : "'IBM Plex Mono',monospace";
+  Chart.defaults.font.family = font;
+  Chart.defaults.color = css('--muted');
+
+  const convEff = pts => pts.map(p => ({...p, y: metric ? mpgToL100(p.y) : p.y}));
+  const corrData = convEff(DATA.corrected);
+  const rawData  = convEff(DATA.raw);
+  const loanData = DATA.loaner.map(p => ({...p, y: metric ? mpgToL100(p.y) : p.y}));
+  const avgVal   = metric ? mpgToL100(DATA.summary.lifetime_mpg) : DATA.summary.lifetime_mpg;
+  const xs = DATA.corrected.concat(DATA.raw).map(p=>p.x).sort();
+  const avgLine = [{x:xs[0],y:avgVal},{x:xs[xs.length-1],y:avgVal}];
+  const yMin = metric ? 3 : 45, yMax = metric ? 7 : 100;
+
+  mpgChart = new Chart(document.getElementById('mpgChart'), {
+    data:{datasets:[
+      {type:'line',label:t.legend_corr,data:corrData,borderColor:css('--teal'),backgroundColor:css('--teal'),
+       tension:.3,borderWidth:2,pointRadius:2.5,pointHoverRadius:5,order:2},
+      {type:'line',label:t.legend_raw,data:rawData,borderColor:css('--red'),backgroundColor:css('--red'),
+       tension:.3,borderWidth:2,borderDash:[5,4],pointRadius:2.5,pointHoverRadius:5,hidden:true,order:3},
+      {type:'line',label:t.legend_avg,data:avgLine,borderColor:css('--muted'),borderWidth:1.5,
+       borderDash:[2,3],pointRadius:0,order:1},
+      {type:'scatter',label:t.legend_loan,data:loanData,borderColor:css('--amber'),backgroundColor:css('--amber'),
+       pointStyle:'star',pointRadius:8,pointHoverRadius:11,order:0}
+    ]},
+    options:{maintainAspectRatio:false,responsive:true,interaction:{mode:'nearest',intersect:false},
+      scales:{
+        x:{type:'time',time:{unit:'quarter',tooltipFormat:'dd MMM yyyy',displayFormats:{quarter:'MMM yy'}},
+           grid:{color:css('--grid')},border:{color:css('--line')}},
+        y:{min:yMin,max:yMax,reverse:metric,
+           title:{display:true,text:metric?t.eff_unit:'MPG (imperial)'},
+           grid:{color:css('--grid')},border:{display:false}}},
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+' '+t.eff_unit}}}}
+  });
+
+  const priceData = DATA.price.map(p=>({...p,y:toLocal(p.y,lang)}));
+  priceChart = new Chart(document.getElementById('priceChart'), {
+    type:'line',
+    data:{datasets:[{label:t.price_sym+'/L',data:priceData,borderColor:css('--amber'),
+      backgroundColor:'rgba(224,123,18,.10)',fill:true,tension:.25,borderWidth:2,pointRadius:1.5,pointHoverRadius:5}]},
+    options:{maintainAspectRatio:false,responsive:true,
+      scales:{
+        x:{type:'time',time:{unit:'quarter',tooltipFormat:'dd MMM yyyy',displayFormats:{quarter:'MMM yy'}},
+           grid:{color:css('--grid')},border:{color:css('--line')}},
+        y:{title:{display:true,text:t.price_yaxis},grid:{color:css('--grid')},border:{display:false},
+           ticks:{callback:v=>t.price_sym+v.toFixed(2)}}},
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>t.price_sym+c.parsed.y.toFixed(3)+'/L'}}}}
+  });
+}
+
+/* ── chart view toggle ── */
+function setView(raw) {
+  showRaw = raw;
+  if (!mpgChart) return;
+  const t = T[activeLang];
+  mpgChart.data.datasets[0].hidden = raw;
+  mpgChart.data.datasets[1].hidden = !raw;
+  mpgChart.update();
   document.getElementById('bCorr').setAttribute('aria-pressed',(!raw).toString());
   document.getElementById('bRaw').setAttribute('aria-pressed',raw.toString());
-  note.textContent=raw
-    ? 'As first logged: two readings spike to 97 and 82 MPG — physically impossible for a 36 L tank over those distances. Each marked an unrecorded fill.'
-    : 'Reconciled: both spikes resolve once the missing 31 L fill (Oct) and an under-recorded tank (May) are restored from receipts. Nothing now exceeds 67 MPG.';
-};
-document.getElementById('bCorr').onclick=()=>setView(false);
-document.getElementById('bRaw').onclick=()=>setView(true);
-setView(false);
+  document.getElementById('effnote').textContent = raw ? t.note_raw : t.note_corr;
+}
 
-new Chart(document.getElementById('priceChart'),{
-  type:'line',
-  data:{datasets:[{label:'£/L',data:DATA.price,borderColor:css('--amber'),backgroundColor:'rgba(224,123,18,.10)',
-    fill:true,tension:.25,borderWidth:2,pointRadius:1.5,pointHoverRadius:5}]},
-  options:{maintainAspectRatio:false,responsive:true,
-    scales:{x:{type:'time',time:{unit:'quarter',tooltipFormat:'dd MMM yyyy',displayFormats:{quarter:'MMM yy'}},
-      grid:{color:css('--grid')},border:{color:css('--line')}},
-      y:{title:{display:true,text:'£ per litre'},grid:{color:css('--grid')},border:{display:false},
-        ticks:{callback:v=>'£'+v.toFixed(2)}}},
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'£'+c.parsed.y.toFixed(3)+'/L'}}}}
-});
+/* ── main render ── */
+function render(lang) {
+  activeLang = lang;
+  const t = T[lang];
+  const metric = lang !== 'en';
+  const s = DATA.summary;
 
-document.getElementById('foot').innerHTML=
-  `${DATA.summary.fills} fills logged · ${fmt(DATA.summary.distance)} miles · lifetime ${fmt(DATA.summary.lifetime_mpg,1)} MPG (UK).<br>`+
-  `Method: brim-to-brim, partials rolled into the following full tank. Imperial gallon = 4.54609 L. Dates DD/MM/YYYY.<br>`+
-  `Built from corrected fuel records · prices in GBP.`;
+  document.documentElement.setAttribute('lang', t.lang_attr);
+  document.title = t.title;
+
+  /* header */
+  document.getElementById('eyebrow-hero').textContent = t.eyebrow_hero;
+  document.getElementById('h1').innerHTML = t.h1;
+  document.getElementById('hero-sub').textContent = t.sub;
+  document.getElementById('hero-unit').textContent = t.hero_unit;
+  document.getElementById('hero-method').textContent = t.method;
+  document.getElementById('band-mid').textContent = t.band_mid;
+
+  /* hero value */
+  const heroVal = metric ? mpgToL100(s.lifetime_mpg) : s.lifetime_mpg;
+  const el = document.getElementById('hero');
+  if (firstRender) {
+    const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (reduce) { el.textContent = fmtN(lang, heroVal, 1); }
+    else { let t0=null; requestAnimationFrame(function step(ts){
+      t0=t0||ts; const p=Math.min((ts-t0)/900,1);
+      el.textContent=fmtN(lang,heroVal*(0.2+0.8*p),1);
+      if(p<1)requestAnimationFrame(step); else el.textContent=fmtN(lang,heroVal,1);
+    }); }
+  } else { el.textContent = fmtN(lang, heroVal, 1); }
+
+  /* band — L/100km: lower=better so invert position */
+  const loMpg=s.worst, hiMpg=s.best;
+  const lo = metric ? mpgToL100(loMpg) : loMpg;
+  const hi = metric ? mpgToL100(hiMpg) : hiMpg;
+  const pos = metric
+    ? ((lo - heroVal) / (lo - hi)) * 100
+    : ((heroVal - lo) / (hi - lo)) * 100;
+  document.getElementById('bandmark').style.left = Math.max(0,Math.min(100,pos))+'%';
+  document.getElementById('bandlo').textContent = fmtN(lang,lo,1)+' '+t.band_worst;
+  document.getElementById('bandhi').textContent = t.band_best+' '+fmtN(lang,hi,1);
+
+  /* metrics */
+  const dist  = metric ? miToKm(s.distance) : s.distance;
+  const spend = toLocal(s.total_spend, lang);
+  const avgPpl= toLocal(s.avg_ppl, lang);
+  let cpmHtml;
+  if (lang==='en') cpmHtml = fmtN('en',s.cost_per_mile,1)+'<small>p</small>';
+  else if (lang==='bg') cpmHtml = fmtN('bg',s.cost_per_mile*FX.bgn/1.60934,1)+'<small>ст./км</small>';
+  else cpmHtml = fmtN('zh',s.cost_per_mile*FX.cny/1.60934/100,2)+'<small>元/公里</small>';
+  const metrics=[
+    [t.m_dist, fmtN(lang,dist)+'<small> '+t.m_dist_unit+'</small>'],
+    [t.m_fuel, fmtN(lang,s.total_litres,0)+'<small> L</small>'],
+    [t.m_spend, t.sym+fmtN(lang,spend,0)],
+    [t.m_price, t.sym+fmtN(lang,avgPpl,2)+'<small>'+t.m_price_unit+'</small>'],
+    [t.m_cpm, cpmHtml],
+  ];
+  document.getElementById('metrics').innerHTML=metrics.map(x=>
+    `<div class="metric"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join('');
+
+  /* vehicle */
+  document.getElementById('eyebrow-vehicle').textContent = t.eyebrow_vehicle;
+  document.getElementById('h2-vehicle').textContent = t.h2_vehicle;
+  document.getElementById('vehicle-redacted').textContent = t.vehicle_redacted;
+  document.getElementById('vehicle-desc').textContent = t.vehicle_desc;
+  document.getElementById('cap-front').textContent = t.cap_front;
+  document.getElementById('cap-rear3').textContent = t.cap_rear3;
+  document.getElementById('cap-rear').textContent = t.cap_rear;
+  document.getElementById('cap-cluster').textContent = t.cluster_cap;
+  document.getElementById('spec').innerHTML = t.specs.map(([k,v])=>
+    `<div><span class="k">${k}</span><span class="v">${v}</span></div>`).join('');
+
+  /* efficiency */
+  document.getElementById('eyebrow-eff').textContent = t.eyebrow_eff;
+  document.getElementById('h2-eff').textContent = t.h2_eff;
+  document.getElementById('bCorr').textContent = t.btn_corr;
+  document.getElementById('bRaw').textContent = t.btn_raw;
+  document.getElementById('legend-corr').textContent = t.legend_corr;
+  document.getElementById('legend-raw').textContent = t.legend_raw;
+  document.getElementById('legend-avg').textContent = t.legend_avg;
+  document.getElementById('legend-loan').textContent = t.legend_loan;
+
+  /* corrections */
+  document.getElementById('eyebrow-corr').textContent = t.eyebrow_corr;
+  document.getElementById('h2-corr').textContent = t.h2_corr;
+  document.getElementById('corrections-note').textContent = t.corrections_note;
+  const corrNotes = t.corr_notes || DATA.corrections.map(c=>c.note);
+  document.getElementById('fixes').innerHTML = DATA.corrections.map((c,i)=>{
+    const cls = c.kind.toLowerCase().includes('volume')?'volume':c.kind.toLowerCase().includes('missing')?'missing':'date';
+    const kl = cls==='date'?t.kind_date:cls==='volume'?t.kind_volume:t.kind_missing;
+    const was = localiseGBP(c.was, lang);
+    const now = localiseGBP(c.now, lang);
+    return `<div class="fix"><div class="d">${c.date}</div><span class="tag ${cls}">${kl}</span>
+     <div class="body"><div class="ch"><del>${was}</del><span class="arr">→</span><ins>${now}</ins></div><p>${corrNotes[i]}</p></div></div>`;
+  }).join('');
+
+  /* price */
+  document.getElementById('eyebrow-price').textContent = t.eyebrow_price;
+  document.getElementById('h2-price').textContent = t.h2_price;
+  document.getElementById('price-note').textContent = t.price_note;
+
+  /* ledger */
+  document.getElementById('eyebrow-ledger').textContent = t.eyebrow_ledger;
+  document.getElementById('h2-ledger').textContent = t.h2_ledger;
+  document.getElementById('ledger-hint').innerHTML = t.ledger_hint;
+  document.getElementById('ledgerHead').innerHTML = '<tr>'+t.th.map(h=>`<th>${h}</th>`).join('')+'</tr>';
+  const edited = new Set(['31/05/2024','11/10/2024','21/10/2024','22/12/2023','24/04/2024']);
+  document.querySelector('#ledgerTable tbody').innerHTML = DATA.ledger.map(r=>{
+    const isEdited = DATA.corrections.some(c=>c.now&&c.date===r.date) || edited.has(r.date);
+    const odo  = fmtN(lang, metric?miToKm(r.odo):r.odo);
+    const trip = r.trip===''?'—':fmtN(lang,metric?miToKm(r.trip):r.trip);
+    const ppl  = t.sym+fmtN(lang,toLocal(r.ppl,lang),2);
+    const cost = t.sym+fmtN(lang,toLocal(r.cost,lang),2);
+    const eff  = r.mpg===''?'—':fmtN(lang,metric?mpgToL100(r.mpg):r.mpg,1);
+    const fl   = r.fill==='Full'?t.fill_full:t.fill_part;
+    return `<tr class="${isEdited?'edited':''}"><td>${r.date}</td><td>${odo}</td><td>${trip}</td>
+     <td>${ppl}</td><td>${fmtN(lang,r.vol,2)}</td><td>${cost}</td>
+     <td class="${r.fill==='Full'?'full':'part'}">${fl}</td><td class="mpg">${eff}</td></tr>`;
+  }).join('');
+
+  /* loaner */
+  document.getElementById('eyebrow-loan').textContent = t.eyebrow_loan;
+  document.getElementById('h2-loan').innerHTML = t.h2_loan;
+  document.getElementById('loan-note').textContent = t.loan_note;
+  document.getElementById('loanerHead').innerHTML = '<tr>'+t.th_loan.map(h=>`<th>${h}</th>`).join('')+'</tr>';
+  document.getElementById('loanerBody').innerHTML = DATA.loaner_rows.map(r=>{
+    const odo  = fmtN(lang, metric?miToKm(r.odo):r.odo);
+    const ppl  = t.sym+fmtN(lang,toLocal(r.ppl,lang),2);
+    const cost = t.sym+fmtN(lang,toLocal(r.cost,lang),2);
+    return `<tr><td>${r.date}</td><td>${odo}</td><td>${ppl}</td><td>${fmtN(lang,r.vol,2)}</td><td>${cost}</td></tr>`;
+  }).join('');
+
+  /* footer */
+  const footDist = fmtN(lang, metric?miToKm(s.distance):s.distance);
+  const footEff  = fmtN(lang, metric?mpgToL100(s.lifetime_mpg):s.lifetime_mpg, 1);
+  const footMethod = lang==='en'
+    ? 'Method: brim-to-brim, partials rolled into the following full tank. Imperial gallon = 4.54609 L. Dates DD/MM/YYYY.'
+    : lang==='bg'
+    ? 'Метод: бак до бак, частичните са включени в следващото пълно зареждане. Дати ДД/ММ/ГГГГ.'
+    : '方法：满箱法，部分加油计入下次满箱。日期格式 DD/MM/YYYY。';
+  const fx = lang==='bg'?FX.bgn:FX.cny;
+  document.getElementById('foot').innerHTML = t.foot(s.fills,footDist,t.m_dist_unit,footEff,t.eff_unit,footMethod,fx);
+
+  /* lang buttons */
+  document.getElementById('lEN').setAttribute('aria-pressed',(lang==='en').toString());
+  document.getElementById('lBG').setAttribute('aria-pressed',(lang==='bg').toString());
+  document.getElementById('lZH').setAttribute('aria-pressed',(lang==='zh').toString());
+
+  /* charts */
+  buildCharts(lang);
+  setView(showRaw);
+  firstRender = false;
+}
+
+/* ── wire up controls ── */
+document.getElementById('bCorr').onclick = ()=>setView(false);
+document.getElementById('bRaw').onclick  = ()=>setView(true);
+document.getElementById('lEN').onclick   = ()=>render('en');
+document.getElementById('lBG').onclick   = ()=>render('bg');
+document.getElementById('lZH').onclick   = ()=>render('zh');
+
+render('en');
 </script>
 </body>
 </html>
