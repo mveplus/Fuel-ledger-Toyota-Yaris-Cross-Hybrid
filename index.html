@@ -418,7 +418,7 @@ function buildCharts(lang) {
   const avgVal   = metric ? mpgToL100(DATA.summary.lifetime_mpg) : DATA.summary.lifetime_mpg;
   const xs = DATA.corrected.concat(DATA.raw).map(p=>p.x).sort();
   const avgLine = [{x:xs[0],y:avgVal},{x:xs[xs.length-1],y:avgVal}];
-  const yMin = metric ? 0 : 45, yMax = metric ? 7 : 100;
+  const yMin = metric ? 3 : 45, yMax = metric ? 5 : 100;
 
   mpgChart = new Chart(document.getElementById('mpgChart'), {
     data:{datasets:[
